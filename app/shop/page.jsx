@@ -7,7 +7,7 @@ import { addToCart } from '@/lib/cart';
 import CartToast from '@/components/CartToast/CartToast';
 import './Shop.css';
 
-const API_BASE = 'http://127.0.0.1:8000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
