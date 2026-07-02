@@ -1,0 +1,41 @@
+.relatedSection {
+  margin-top: 80px;
+}
+
+.relatedSection h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.relatedCard {
+  cursor: pointer;
+}
+
+.relatedCard img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.relatedCard h4 {
+  font-size: 14px;
+  margin: 10px 0 5px;
+}
+
+.relatedCard p {
+  font-weight: bold;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .relatedGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

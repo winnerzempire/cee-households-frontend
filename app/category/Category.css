@@ -1,0 +1,116 @@
+/* ============================= */
+/* Categories Page Styling */
+/* ============================= */
+
+.categoriesPage {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.categoriesTitle {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #111;
+}
+
+/* Loading */
+.categoriesLoading {
+  text-align: center;
+  padding: 80px;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Grid Layout */
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* Category Card */
+.categoryCard {
+  text-decoration: none;
+  color: inherit;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categoryCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Wrapper */
+.categoryImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+}
+
+/* Image */
+.categoryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* Placeholder */
+.categoryPlaceholder {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  border-radius: 14px;
+}
+
+/* Overlay */
+.categoryOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.1)
+  );
+  color: white;
+  border-radius: 0 0 14px 14px;
+}
+
+.categoryOverlay h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.categoryCta {
+  font-size: 13px;
+  display: block;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+/* ============================= */
+/* Responsive Design */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .categoriesTitle {
+    font-size: 1.8rem;
+  }
+
+  .categoryImageWrapper {
+    height: 220px;
+  }
+}

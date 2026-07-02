@@ -1,0 +1,38 @@
+.product-slider-section {
+  padding: 40px 20px;
+  background: #f8f8f8;
+}
+
+.product-slider-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: underline 6px #585230;
+   text-underline-offset: 8px;
+}
+
+.product-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.product-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  min-width: 200px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}

@@ -1,0 +1,32 @@
+.topbar {
+  background: #585230;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* TRACK (ANIMATION) */
+.topbar-track {
+  display: flex;
+  width: fit-content;
+  animation: scrollLeft 20s linear infinite;
+}
+
+/* CONTENT */
+.topbar-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: white;
+}
+
+/* ANIMATION */
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

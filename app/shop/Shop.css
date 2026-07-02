@@ -1,0 +1,150 @@
+.shopPage {
+  padding: 20px;
+  background: #f8f8f8;
+}
+
+/* TOP BAR */
+.shopTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.shopTopBar h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: gray;
+}
+
+.shopTopBar input {
+  padding: 10px 14px;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* LAYOUT */
+.shopContent {
+  display: flex;
+  gap: 20px;
+}
+
+/* SIDEBAR */
+.shopSidebar {
+  width: 260px;
+}
+
+.filterCard {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.filterCard h3 {
+  margin-bottom: 10px;
+}
+
+/* CATEGORY PILLS */
+.categoryPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.pill:hover {
+  background: #f0f0f0;
+}
+
+.pill.active {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+/* CLEAR BUTTON */
+.clearBtn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: #ff4d4d;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* MAIN */
+.shopMain {
+  flex: 1;
+}
+
+.resultsBar {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: gray;
+}
+
+/* GRID */
+.shopGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+/* PRODUCT CARD */
+.productCard {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.productCard:hover {
+  transform: translateY(-3px);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #f1f1f1;
+}
+
+.productImage {
+  object-fit: cover;
+}
+
+.productInfo {
+  padding: 10px;
+}
+
+.productPrice {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.addToCartBtn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}

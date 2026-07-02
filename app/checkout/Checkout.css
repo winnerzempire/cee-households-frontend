@@ -1,0 +1,100 @@
+.checkoutPage{
+max-width:1200px;
+margin:auto;
+padding:40px;
+}
+
+.checkoutTitle{
+margin-bottom:30px;
+font-size:28px;
+}
+
+.checkoutContainer{
+display:grid;
+grid-template-columns:1fr 400px;
+gap:40px;
+}
+
+/* FORM */
+
+.checkoutForm{
+background:white;
+padding:25px;
+border-radius:10px;
+border:1px solid #eee;
+}
+
+.checkoutForm input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+.placeOrderBtn{
+width:100%;
+padding:12px;
+background:black;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+}
+
+.placeOrderBtn:hover{
+background:#333;
+}
+
+/* SUMMARY */
+
+.orderSummary{
+background:#fafafa;
+border:1px solid #eee;
+padding:25px;
+border-radius:10px;
+height:fit-content;
+}
+
+.summaryItem{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-size:14px;
+}
+
+.summaryTotal{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+/* MPESA BOX */
+
+.mpesaBox{
+margin-top:25px;
+background:#e8f5e9;
+padding:15px;
+border-radius:8px;
+font-size:14px;
+}
+
+/* WHATSAPP BUTTON */
+
+.whatsappBtn{
+display:block;
+margin-top:20px;
+background:#25D366;
+color:white;
+text-align:center;
+padding:12px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+}
+
+.whatsappBtn:hover{
+background:#1ebe5d;
+}

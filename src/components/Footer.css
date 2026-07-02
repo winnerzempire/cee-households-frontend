@@ -1,0 +1,159 @@
+.footer {
+  background: #585230;
+  color: #fff;
+  margin-top: 80px;
+}
+
+/* MAIN FOOTER */
+.footer-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 70px 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+.footer-section h4 {
+  margin-bottom: 18px;
+  color: #d6b56d;
+  font-size: 18px;
+}
+
+.footer-logo {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.footer-logo span {
+  color: #d6b56d;
+}
+
+.footer-text {
+  line-height: 1.8;
+  color: #e5e5e5;
+  font-size: 15px;
+}
+
+/* LINKS */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 12px;
+}
+
+.footer-section ul li a {
+  color: #f5f5f5;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #d6b56d;
+  padding-left: 5px;
+}
+
+/* SOCIALS */
+.footer-socials {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.footer-socials a {
+  text-decoration: none;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 14px;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.footer-socials a:hover {
+  background: #d6b56d;
+  border-color: #d6b56d;
+  color: #333;
+}
+
+/* CONTACT */
+.footer-section p {
+  margin-bottom: 12px;
+  color: #f1f1f1;
+}
+
+.footer-whatsapp {
+  display: inline-block;
+  margin-top: 15px;
+  background: #25d366;
+  color: white;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.footer-whatsapp:hover {
+  transform: translateY(-2px);
+}
+
+/* TRUST BAR */
+.footer-trust {
+  background: rgba(0,0,0,0.15);
+  text-align: center;
+  padding: 18px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.footer-trust p {
+  margin: 0;
+}
+
+/* COPYRIGHT */
+.footer-bottom {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 14px;
+  color: #ddd;
+}
+
+/* TABLET */
+@media (max-width: 992px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 50px 25px;
+    gap: 35px;
+  }
+
+  .footer-logo {
+    font-size: 24px;
+  }
+
+  .footer-section h4 {
+    font-size: 17px;
+  }
+
+  .footer-socials {
+    justify-content: flex-start;
+  }
+
+  .footer-trust {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 15px;
+  }
+}
