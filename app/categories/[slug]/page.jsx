@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import './CategoryProducts.css';
 
-const API_BASE = 'http://127.0.0.1:8000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
 export default function CategoryProducts() {
   const { slug } = useParams();
