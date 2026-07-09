@@ -239,6 +239,8 @@ export default function Shop() {
 
       </div>
 
+      <Pagination />
+
       {/* Toast Notification */}
       <CartToast show={showToast} />
 
