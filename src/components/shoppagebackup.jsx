@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { addToCart } from '@/lib/cart';
 import CartToast from '@/components/CartToast/CartToast';
-import Pagination from '@/components/Pagination/Pagination';
 import './Shop.css';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
@@ -16,9 +15,6 @@ export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalProducts, setTotalProducts] = useState(0);
 
   // Toast
   const [showToast, setShowToast] = useState(false);
