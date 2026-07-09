@@ -31,7 +31,7 @@ useEffect(() => {
   fetchCategories();
 }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (pageNumber = 1) => {
     try {
        const res = await fetch(`${API_BASE}/products/?page=${pageNumber}`);
        const data = await res.json();
