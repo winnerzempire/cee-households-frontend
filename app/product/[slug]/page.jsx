@@ -39,13 +39,14 @@ export default function ProductDetail() {
   useEffect(() => {
   if (!product || typeof window === "undefined" || !window.fbq) return;
 
-  window.fbq("ViewContent effect fired", "ViewContent", {
+  window.fbq("track", "ViewContent", {
     content_ids: [product.id],
     content_name: product.name,
     content_type: "product",
     value: Number(product.price),
     currency: "KES",
   });
+  console.log("ViewContent event sent");
 }, [product]);
 
   const handleAddToCart = () => {
