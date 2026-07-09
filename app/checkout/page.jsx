@@ -19,7 +19,31 @@ export default function CheckoutPage() {
   });
 
   useEffect(() => {
-    setCart(getCart());
+    const cartItems = getCart();
+    setCart(cartItems);
+
+    // Fire Meta Pixel InitiateCheckout event
+    if (
+      typeof window !== "undefined" &&
+      window.fbq &&
+      cartItems.length > 0
+    ) {
+      const totalValue = cartItems.reduce(
+        (sum, item) => sum + Number(item.price) * item.quantity,
+        0
+      );
+
+      window.fbq("track", "InitiateCheckout", {
+        value: totalValue,
+        currency: "KES",
+        content_type: "product",
+        contents: cartItems.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+          item_price: Number(item.price),
+        })),
+      });
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -96,7 +120,6 @@ M-Pesa Name: ${form.mpesa_name}
       <h1 className="checkoutTitle">Checkout</h1>
 
       <div className="checkoutContainer">
-
         {/* LEFT SIDE */}
         <div className="checkoutForm">
           <h2>Customer Details</h2>
