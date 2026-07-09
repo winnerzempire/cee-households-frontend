@@ -97,8 +97,10 @@ export default function RootLayout({ children }) {
           <Footer />
            <WhatsAppFloat />
         </CartProvider>
+        
+        <GoogleAnalytics gaId="G-ZC7JK9KLZ6" />
       </body>
-       <GoogleAnalytics gaId="G-ZC7JK9KLZ6" />
+       
     </html>
   );
 }
