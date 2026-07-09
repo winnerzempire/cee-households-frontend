@@ -23,17 +23,22 @@ export default function Shop() {
   // Toast
   const [showToast, setShowToast] = useState(false);
 
-  useEffect(() => {
-    fetchProducts();
-    fetchCategories();
-  }, []);
+ useEffect(() => {
+  fetchProducts(page);
+}, [page]);
+
+useEffect(() => {
+  fetchCategories();
+}, []);
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`${API_BASE}/products/`);
-      const data = await res.json();
+       const res = await fetch(`${API_BASE}/products/?page=${pageNumber}`);
+       const data = await res.json();
 
-      setProducts(Array.isArray(data) ? data : data.results || []);
+       setProducts(data.results || []);
+       setTotalProducts(data.count);
+       setTotalPages(Math.ceil(data.count / 10));
     } catch (err) {
       console.error('Error fetching products:', err);
     } finally {
@@ -239,7 +244,11 @@ export default function Shop() {
 
       </div>
 
-      <Pagination />
+      <Pagination 
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
 
       {/* Toast Notification */}
       <CartToast show={showToast} />
