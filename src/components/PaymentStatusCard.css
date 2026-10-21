@@ -1,0 +1,82 @@
+.paymentStatusCard {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.paymentStatusCard h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.statusPaid {
+  color: #1a7d3c;
+  font-weight: 600;
+}
+
+.statusPending {
+  color: #946200;
+}
+
+.statusFailed {
+  color: #9b1c1c;
+  font-weight: 600;
+}
+
+.statusError {
+  background: #fde8e8;
+  color: #9b1c1c;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.statusActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.statusActions > button {
+  padding: 10px 14px;
+  background: #1a7d3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.statusActions > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reconcileForm {
+  display: flex;
+  gap: 8px;
+}
+
+.reconcileForm input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.reconcileForm button {
+  padding: 10px 14px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.reconcileForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { addToCart } from '@/lib/cart';
+import { useCart } from '@/context/CartContext';
 import CartToast from '@/components/CartToast/CartToast';
 import Pagination from '@/components/Pagination/Pagination';
 import './Shop.css';
@@ -11,6 +11,7 @@ import './Shop.css';
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
 export default function Shop() {
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');

@@ -1,0 +1,56 @@
+.orderStatusPage {
+  max-width: 700px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.orderStatusPage h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.orderStatusError {
+  background: #fde8e8;
+  color: #9b1c1c;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.orderDetailCard {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.orderItemsList {
+  margin: 16px 0;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.orderItemRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.orderTotalsList {
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.orderTotalsList > div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.orderGrandTotal {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #000 !important;
+}

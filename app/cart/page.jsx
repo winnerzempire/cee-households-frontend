@@ -1,40 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getCart, removeFromCart, updateQuantity } from "@/lib/cart";
+import { useCart } from "@/context/CartContext";
 import "./Cart.css";
 
 export default function CartPage() {
-  const [cart, setCart] = useState([]);
+  const { cartItems: cart, removeFromCart, updateQuantity, clearCart } = useCart();
 
-  const loadCart = () => {
-    setCart(getCart());
-  };
-
-  useEffect(() => {
-    loadCart();
-  }, []);
-
-  const handleRemove = (id) => {
-    removeFromCart(id);
-    loadCart();
-  };
-
-  const increaseQty = (id) => {
-    updateQuantity(id, 1);
-    loadCart();
-  };
-
-  const decreaseQty = (id) => {
-    updateQuantity(id, -1);
-    loadCart();
-  };
-
-  const clearCart = () => {
-    localStorage.removeItem("cart");
-    loadCart();
-  };
+  const handleRemove = (id) => removeFromCart(id);
+  const increaseQty = (id) => updateQuantity(id, 1);
+  const decreaseQty = (id) => updateQuantity(id, -1);
 
   const totalItems = cart.reduce(
     (sum, item) => sum + item.quantity,

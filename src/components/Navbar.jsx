@@ -2,13 +2,17 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiUser } from "react-icons/fi";
 import "./Navbar.css";
 
 export default function Navbar() {
   const { cartCount } = useCart();
+  const { user, logout } = useAuth();
+  const router = useRouter();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -126,6 +130,30 @@ export default function Navbar() {
               </span>
             )}
 
+          </div>
+
+          {/* ACCOUNT */}
+          <div className="navbar-account">
+            {user ? (
+              <>
+                <Link href="/account/orders" className="navbar-account-link">
+                  <FiUser size={18} /> {user.first_name || "My Orders"}
+                </Link>
+                <button
+                  className="navbar-logout"
+                  onClick={async () => {
+                    await logout();
+                    router.push("/");
+                  }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link href="/login" className="navbar-account-link">
+                <FiUser size={18} /> Login
+              </Link>
+            )}
           </div>
 
           {/* WHATSAPP */}

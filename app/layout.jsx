@@ -1,6 +1,7 @@
 import "./globals.css";
 import Script from "next/script";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }) {
                 fbq('track', 'PageView');
               `}
             </Script>
+        <AuthProvider>
         <CartProvider>
           <TopBar />
           <Navbar />
@@ -97,6 +99,7 @@ export default function RootLayout({ children }) {
           <Footer />
            <WhatsAppFloat />
         </CartProvider>
+        </AuthProvider>
         
         <GoogleAnalytics gaId="G-ZC7JK9KLZ6" />
       </body>

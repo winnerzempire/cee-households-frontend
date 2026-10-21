@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import './ProductDetail.css';
 import RelatedProducts from '@/components/RelatedProducts';
 import CartToast from '@/components/CartToast/CartToast';
-import { addToCart } from '@/lib/cart';
+import { useCart } from '@/context/CartContext';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
 export default function ProductDetail() {
   const { slug } = useParams();
+  const { addToCart } = useCart();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);

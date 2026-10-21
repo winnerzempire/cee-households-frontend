@@ -1,103 +1,136 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getCart } from "@/lib/cart";
+import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
+import { api, errorMessage } from "@/lib/api";
+import PaymentStatusCard from "@/components/PaymentStatusCard";
 import "./Checkout.css";
 
 export default function CheckoutPage() {
   const router = useRouter();
-
-  const [cart, setCart] = useState([]);
+  const { cartItems, clearCart } = useCart();
+  const { user, loading: authLoading } = useAuth();
 
   const [form, setForm] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     phone: "",
-    address: "",
+    email: user?.email || "",
+    address_line_1: "",
     city: "",
-    mpesa_name: "",
+    state: "",
+    postal_code: "",
+    country: "Kenya",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [order, setOrder] = useState(null); // set once the order + STK push succeed
 
-  useEffect(() => {
-    const cartItems = getCart();
-    setCart(cartItems);
-
-    // Fire Meta Pixel InitiateCheckout event
-    if (
-      typeof window !== "undefined" &&
-      window.fbq &&
-      cartItems.length > 0
-    ) {
-      const totalValue = cartItems.reduce(
-        (sum, item) => sum + Number(item.price) * item.quantity,
-        0
-      );
-
-      window.fbq("track", "InitiateCheckout", {
-        value: totalValue,
-        currency: "KES",
-        content_type: "product",
-        contents: cartItems.map((item) => ({
-          id: item.id,
-          quantity: item.quantity,
-          item_price: Number(item.price),
-        })),
-      });
-    }
-  }, []);
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const total = cart.reduce(
+  const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
     0
   );
 
-  const itemsText = cart
-    .map(
-      (item) =>
-        `${item.name} x${item.quantity} - KSh ${
-          Number(item.price) * item.quantity
-        }`
-    )
-    .join("%0A");
-
-  const whatsappLink = `https://wa.me/254792263571?text=
-*NEW ORDER FROM CEE HOUSEHOLDS*
-%0A%0A
-${itemsText}
-%0A%0A
-*TOTAL:* KSh ${total}
-%0A%0A
-*Customer Details*
-%0A
-Name: ${form.name}
-%0A
-Phone: ${form.phone}
-%0A
-Address: ${form.address}
-%0A
-City: ${form.city}
-%0A
-M-Pesa Name: ${form.mpesa_name}
-`;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    alert(
-      "Order details captured successfully. Please confirm your order on WhatsApp."
-    );
-
-    window.open(whatsappLink, "_blank");
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  if (cart.length === 0) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSubmitting(true);
+
+    try {
+      // The backend's Order is built from its own Cart, separate from this
+      // app's localStorage cart - push our items across before checking out.
+      await api.clearBackendCart();
+      for (const item of cartItems) {
+        await api.addCartItem(item.id, item.quantity);
+      }
+
+      const shippingAddress = {
+        first_name: form.first_name,
+        last_name: form.last_name,
+        phone: form.phone,
+        email: form.email,
+        address_line_1: form.address_line_1,
+        city: form.city,
+        state: form.state,
+        postal_code: form.postal_code,
+        country: form.country,
+      };
+
+      const createdOrder = await api.createOrder({
+        shipping_address: shippingAddress,
+        customer_phone: form.phone,
+        payment_method: "mpesa",
+      });
+
+      const payResult = await api.payOrder(createdOrder.id, form.phone);
+
+      clearCart();
+      setOrder({
+        id: createdOrder.id,
+        order_number: createdOrder.order_number,
+        total_amount: createdOrder.total_amount,
+        status: createdOrder.status,
+        payment_status: "pending",
+        payment: payResult.payment,
+      });
+    } catch (err) {
+      setError(errorMessage(err, "Could not place your order. Please try again."));
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // --- Order placed, STK push sent: show live payment status ---
+  if (order) {
+    return (
+      <div className="checkoutPage">
+        <h1 className="checkoutTitle">Order placed</h1>
+        <div className="orderPlacedContainer">
+          <div className="orderPlacedSummary">
+            <p>
+              Order <strong>{order.order_number}</strong> - KSh{" "}
+              {Number(order.total_amount).toLocaleString()}
+            </p>
+            <p>An M-Pesa prompt has been sent to {form.phone}. Enter your PIN to complete payment.</p>
+          </div>
+
+          <PaymentStatusCard order={order} mpesaPhone={form.phone} />
+
+          <Link href={`/orders/${order.id}`} className="viewOrderLink">
+            View order status page
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!authLoading && !user) {
+    return (
+      <div className="checkoutPage">
+        <div className="emptyCheckout">
+          <h2>Log in to check out</h2>
+          <p>Create an account or log in to place your order and track payment.</p>
+          <div className="authPrompt">
+            <Link href="/login?next=/checkout" className="placeOrderBtn">
+              Log In
+            </Link>
+            <Link href="/register?next=/checkout" className="placeOrderBtn placeOrderBtnOutline">
+              Create Account
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (cartItems.length === 0) {
     return (
       <div className="checkoutPage">
         <div className="emptyCheckout">
@@ -122,51 +155,78 @@ M-Pesa Name: ${form.mpesa_name}
       <div className="checkoutContainer">
         {/* LEFT SIDE */}
         <div className="checkoutForm">
-          <h2>Customer Details</h2>
+          <h2>Shipping & M-Pesa Details</h2>
+
+          {error && <p className="checkoutError">{error}</p>}
 
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              name="name"
-              placeholder="Full Name"
+              name="first_name"
+              placeholder="First Name"
               required
+              value={form.first_name}
               onChange={handleChange}
             />
-
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              required
+              value={form.last_name}
+              onChange={handleChange}
+            />
             <input
               type="text"
               name="phone"
-              placeholder="Phone Number"
+              placeholder="M-Pesa Phone Number (e.g. 0712345678)"
               required
+              value={form.phone}
               onChange={handleChange}
             />
-
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+              value={form.email}
+              onChange={handleChange}
+            />
             <input
               type="text"
-              name="address"
+              name="address_line_1"
               placeholder="Delivery Address"
               required
+              value={form.address_line_1}
               onChange={handleChange}
             />
-
             <input
               type="text"
               name="city"
               placeholder="City"
               required
+              value={form.city}
               onChange={handleChange}
             />
-
             <input
               type="text"
-              name="mpesa_name"
-              placeholder="M-Pesa Registered Name"
+              name="state"
+              placeholder="County/State"
               required
+              value={form.state}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="postal_code"
+              placeholder="Postal Code"
+              required
+              value={form.postal_code}
               onChange={handleChange}
             />
 
-            <button type="submit" className="placeOrderBtn">
-              Confirm Order
+            <button type="submit" className="placeOrderBtn" disabled={submitting}>
+              {submitting ? "Placing order..." : "Place Order & Pay with M-Pesa"}
             </button>
           </form>
         </div>
@@ -175,57 +235,38 @@ M-Pesa Name: ${form.mpesa_name}
         <div className="orderSummary">
           <h2>Order Summary</h2>
 
-          {cart.map((item) => (
+          {cartItems.map((item) => (
             <div className="summaryItem" key={item.id}>
               <span>
                 {item.name} × {item.quantity}
               </span>
 
               <span>
-                KSh {Number(item.price) * item.quantity}
+                KSh {(Number(item.price) * item.quantity).toLocaleString()}
               </span>
             </div>
           ))}
 
           <div className="summaryTotal">
-            Total: KSh {total}
+            Subtotal: KSh {total.toLocaleString()}
           </div>
+          <p className="summaryNote">
+            Shipping (KSh 200) and 16% VAT are added on the next step.
+          </p>
 
-          {/* PAYMENT BOX */}
           <div className="mpesaBox">
-            <h3>M-Pesa Payment</h3>
-
-            <p>1. Pay using the Till Number below.</p>
-            <p>2. Enter your registered M-Pesa name.</p>
-            <p>3. Click Confirm Order.</p>
-            <p>4. The order will be sent to WhatsApp.</p>
-
-            <br />
-
-            <p>
-              <strong>Till Number:</strong> 4315570
-            </p>
-
-            <p>
-              <strong>Name:</strong> Cynthia Kwamboka & Mugambi
-            </p>
+            <h3>How M-Pesa payment works</h3>
+            <p>1. Click &quot;Place Order &amp; Pay with M-Pesa&quot;.</p>
+            <p>2. You&apos;ll get an STK prompt on your phone.</p>
+            <p>3. Enter your M-Pesa PIN to confirm.</p>
+            <p>4. We confirm automatically and email you a receipt.</p>
           </div>
 
-          {/* TRUST SECTION */}
           <div className="checkoutTrust">
             <p>✅ Secure Checkout</p>
             <p>🚚 Countrywide Delivery</p>
             <p>💬 Dedicated Customer Support</p>
           </div>
-
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whatsappBtn"
-          >
-            Confirm Order on WhatsApp
-          </a>
         </div>
       </div>
     </div>

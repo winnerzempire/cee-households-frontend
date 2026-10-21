@@ -1,0 +1,75 @@
+.myOrdersPage {
+  max-width: 700px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.myOrdersPage h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.myOrdersError {
+  background: #fde8e8;
+  color: #9b1c1c;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.myOrdersList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.myOrderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.myOrderRow:hover {
+  border-color: #ccc;
+}
+
+.myOrderDate {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.myOrderMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.myOrderBadge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.myOrderBadge-paid {
+  background: #e6f4ea;
+  color: #1a7d3c;
+}
+
+.myOrderBadge-pending {
+  background: #fff4e0;
+  color: #946200;
+}
+
+.myOrderBadge-failed,
+.myOrderBadge-cancelled {
+  background: #fde8e8;
+  color: #9b1c1c;
+}

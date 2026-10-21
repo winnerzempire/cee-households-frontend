@@ -98,3 +98,72 @@ font-weight:600;
 .whatsappBtn:hover{
 background:#1ebe5d;
 }
+
+/* ERROR / NOTES */
+
+.checkoutError{
+background:#fde8e8;
+color:#9b1c1c;
+padding:10px 12px;
+border-radius:6px;
+font-size:14px;
+margin-bottom:15px;
+}
+
+.summaryNote{
+font-size:12px;
+color:#777;
+margin-top:6px;
+}
+
+/* EMPTY / AUTH PROMPT */
+
+.emptyCheckout{
+text-align:center;
+padding:60px 20px;
+}
+
+.authPrompt{
+display:flex;
+gap:14px;
+justify-content:center;
+margin-top:20px;
+}
+
+.placeOrderBtn{
+display:inline-block;
+text-align:center;
+text-decoration:none;
+}
+
+.placeOrderBtnOutline{
+background:transparent;
+color:black;
+border:1px solid black;
+}
+
+.placeOrderBtnOutline:hover{
+background:#f2f2f2;
+}
+
+/* ORDER PLACED */
+
+.orderPlacedContainer{
+max-width:600px;
+margin:auto;
+}
+
+.orderPlacedSummary{
+background:#fff;
+border:1px solid #eee;
+border-radius:10px;
+padding:20px;
+}
+
+.viewOrderLink{
+display:inline-block;
+margin-top:16px;
+color:#1a7d3c;
+font-weight:600;
+text-decoration:none;
+}
